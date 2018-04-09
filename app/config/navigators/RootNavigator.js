@@ -1,16 +1,17 @@
 import { StackNavigator } from 'react-navigation'
 import React, { Component } from 'react'
-import MapView from '../../views/MapView'
+import LandingMap from '../../views/LandingMap'
 
 const RootStack = StackNavigator({
   Landing: {
-    screen: MapView,
+    screen: LandingMap,
   }
 },
 { 
   headerMode: 'none', 
 },
 );
+
 
 export default class RootNav extends Component {
   render() {
