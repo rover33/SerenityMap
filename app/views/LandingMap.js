@@ -5,7 +5,9 @@ import ModalWrapper from 'react-native-modal-wrapper';
 import { connect } from 'react-redux';
 import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
 import { SafeAreaView, Text, View, StatusBar, StyleSheet, AsyncStorage, Image, TouchableOpacity } from 'react-native';
-import { toggleSettingsModal } from '../actions'
+import { toggleSettingsModal, toggleListModal } from '../actions'
+import SettingsModal from '../components/modals/SettingsModal'
+import ListModal from '../components/modals/ListModal'
 
 class LandingMap extends Component {
   constructor(props) {
@@ -17,11 +19,11 @@ class LandingMap extends Component {
   }
 
   toggleList() {
-    alert('list')
+    this.props.toggleListModal()
   }
 
   render() {
-    let { settingsModal } = this.props
+    let { settingsModal, listModal } = this.props
     return (
       <SafeAreaView style ={styles.container}>
         <MapView
@@ -51,11 +53,14 @@ class LandingMap extends Component {
             position="left"
             style={{ width: '70%', height: '100%', position: 'absolute', left: 0}}
             visible={settingsModal}>
-          <Text>New project</Text>
-          
-          <View>
-           
-          </View>
+            <SettingsModal />
+        </ModalWrapper>
+        <ModalWrapper
+            onRequestClose={this.toggleList.bind(this)}
+            position="right"
+            style={{ width: '70%', height: '100%', position: 'absolute', right: 0}}
+            visible={listModal}>
+          <ListModal />
         </ModalWrapper>
       </SafeAreaView>
     );
@@ -65,11 +70,12 @@ class LandingMap extends Component {
 const mapStateToProps = state => {
   return {
     mapSettings: state.map.mapSettings,
-    settingsModal: state.map.settingsModal
+    settingsModal: state.map.settingsModal,
+    listModal: state.map.listModal
   };
 };
 
-export default connect(mapStateToProps, { toggleSettingsModal })(LandingMap);
+export default connect(mapStateToProps, { toggleSettingsModal, toggleListModal })(LandingMap);
 
 const styles = StyleSheet.create({
   mainContainer: {

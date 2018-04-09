@@ -18,7 +18,7 @@ class SettingsModal extends Component {
        
         return (
             <SafeAreaView style = {styles.mainContainer}>
-               <Text>Settings Modal</Text>
+               <Text> List Modal </Text>
             </SafeAreaView>
         );
     }
