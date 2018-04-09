@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import MapView, { PROVIDER_GOOGLE }  from 'react-native-maps';
 import { withNavigation } from 'react-navigation';
+import ModalWrapper from 'react-native-modal-wrapper';
 import { connect } from 'react-redux';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
-import { SafeAreaView, Text, View, StatusBar, StyleSheet, AsyncStorage } from 'react-native';
+import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
+import { SafeAreaView, Text, View, StatusBar, StyleSheet, AsyncStorage, Image, TouchableOpacity } from 'react-native';
+import { toggleSettingsModal } from '../actions'
 
 class LandingMap extends Component {
   constructor(props) {
     super(props);
   }
 
+  toggleSearch() {
+    this.props.toggleSettingsModal()
+  }
+
+  toggleList() {
+    alert('list')
+  }
+
   render() {
+    let { settingsModal } = this.props
     return (
       <SafeAreaView style ={styles.container}>
         <MapView
@@ -25,10 +36,27 @@ class LandingMap extends Component {
           }}
         ></MapView>
         <View style = {styles.footer}>
+          <TouchableOpacity onPress = {() => this.toggleSearch()} style = {styles.buttonContainer}>
+            <Image style = {styles.button} source = {require('../../assets/search.png')} />
+          </TouchableOpacity>
           <Text style = {styles.title}>
-            Serenity Map
+            Serenity Maps
           </Text>
+          <TouchableOpacity onPress = {() => this.toggleList()} style = {styles.buttonContainer}>
+            <Image style = {styles.button} source = {require('../../assets/note.png')} />
+          </TouchableOpacity>
         </View>
+        <ModalWrapper
+            onRequestClose={this.toggleSearch.bind(this)}
+            position="left"
+            style={{ width: '70%', height: '100%', position: 'absolute', left: 0}}
+            visible={settingsModal}>
+          <Text>New project</Text>
+          
+          <View>
+           
+          </View>
+        </ModalWrapper>
       </SafeAreaView>
     );
   }
@@ -36,11 +64,12 @@ class LandingMap extends Component {
 
 const mapStateToProps = state => {
   return {
-    mapSettings: state.map.mapSettings
+    mapSettings: state.map.mapSettings,
+    settingsModal: state.map.settingsModal
   };
 };
 
-export default connect(mapStateToProps, {  })(LandingMap);
+export default connect(mapStateToProps, { toggleSettingsModal })(LandingMap);
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -77,5 +106,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: responsiveFontSize(3),
     fontFamily: 'DINPro-Bold'
+  },
+  button: {
+    height: '100%',
+    width: '100%',
+    zIndex: 1000000,
+    resizeMode: 'contain',
+  },
+  buttonContainer: {
+    height: '50%',
+    width: '15%',
   }
 });

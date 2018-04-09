@@ -24,6 +24,7 @@
 		6E7AA65D207B2E7B0037A43E /* DINPro Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7AA65B207B2E7B0037A43E /* DINPro Bold.otf */; };
 		6E7AA65E207B2E7B0037A43E /* DINPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7AA65C207B2E7B0037A43E /* DINPro-Regular.ttf */; };
 		6E7AA660207B30090037A43E /* DINPro Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7AA65F207B30090037A43E /* DINPro Bold.ttf */; };
+		6E7AA662207B62180037A43E /* serenity.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7AA661207B62180037A43E /* serenity.png */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		F3D9F1C780E80982536D2C26 /* libPods-SerenityMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6B038BF3C519D105B827D7 /* libPods-SerenityMaps.a */; };
@@ -315,6 +316,8 @@
 		6E7AA65B207B2E7B0037A43E /* DINPro Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DINPro Bold.otf"; path = "../../assets/fonts/DINPro Bold.otf"; sourceTree = "<group>"; };
 		6E7AA65C207B2E7B0037A43E /* DINPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DINPro-Regular.ttf"; path = "../../assets/fonts/DINPro-Regular.ttf"; sourceTree = "<group>"; };
 		6E7AA65F207B30090037A43E /* DINPro Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DINPro Bold.ttf"; path = "../../../../../Downloads/DINPro Bold.ttf"; sourceTree = "<group>"; };
+		6E7AA661207B62180037A43E /* serenity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = serenity.png; path = ../../../../Downloads/serenity.png; sourceTree = "<group>"; };
+		6E7AA663207B622F0037A43E /* serenity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = serenity.png; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		79D1FB4AD2C8DA8E876504ED /* Pods-SerenityMaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SerenityMaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-SerenityMaps/Pods-SerenityMaps.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -439,6 +442,7 @@
 		13B07FAE1A68108700A75B9A /* SerenityMaps */ = {
 			isa = PBXGroup;
 			children = (
+				6E7AA663207B622F0037A43E /* serenity.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -541,6 +545,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6E7AA661207B62180037A43E /* serenity.png */,
 				6E7AA65A207B2E650037A43E /* fonts */,
 				13B07FAE1A68108700A75B9A /* SerenityMaps */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -944,6 +949,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E7AA662207B62180037A43E /* serenity.png in Resources */,
 				6E7AA660207B30090037A43E /* DINPro Bold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				6E7AA65E207B2E7B0037A43E /* DINPro-Regular.ttf in Resources */,
