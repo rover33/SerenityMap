@@ -5,17 +5,18 @@ import ModalWrapper from 'react-native-modal-wrapper';
 import { connect } from 'react-redux';
 import { responsiveFontSize, responsiveHeight } from 'react-native-responsive-dimensions';
 import { SafeAreaView, Text, View, StatusBar, StyleSheet, AsyncStorage, Image, TouchableOpacity } from 'react-native';
-import { toggleSettingsModal, toggleListModal, updateCurrentLocation } from '../actions'
+import { toggleSettingsModal, toggleListModal, updateCurrentLocation, getCities, searchForMeetings } from '../actions'
 import SettingsModal from '../components/modals/SettingsModal'
 import ListModal from '../components/modals/ListModal'
 
 class LandingMap extends Component {
   constructor(props) {
     super(props);
+    this.props.getCities();
+    this.props.searchForMeetings('?')
   }
 
   componentDidMount() {
-    console.log('Component did mount');
     this.getCurrentPosition();
   }
 
@@ -35,13 +36,13 @@ class LandingMap extends Component {
           switch (error.code) {
             case 1:
               if (Platform.OS === "ios") {
-                Alert.alert("", "Para ubicar tu locación habilita permiso para la aplicación en Ajustes - Privacidad - Localización");
+                alert("", "No location permission");
               } else {
-                Alert.alert("", "Para ubicar tu locación habilita permiso para la aplicación en Ajustes - Apps - ExampleApp - Localización");
+                alert("", "No location permission");
               }
               break;
             default:
-              Alert.alert("", "Error al detectar tu locación");
+              alert("", "Error detecting location");
           }
         }
       );
@@ -58,14 +59,19 @@ class LandingMap extends Component {
     this.props.toggleListModal()
   }
 
+  _markerDesc(marker) {
+    return `${marker.address} ${marker.day} ${marker.time}`
+  }
+
   render() {
     let { settingsModal, listModal, radius } = this.props
     return (
       <SafeAreaView style ={styles.container}>
         <MapView
           showsUserLocation={true}
-          followsUserLocation={false}
+          followsUserLocation={true}
           style={styles.map}
+          zoomEnabled={true}
           region={{
             latitude: 104.9903,
             longitude: 39.7392,
@@ -75,32 +81,34 @@ class LandingMap extends Component {
         >
           {this.props.meetings.map(marker => (
             <Marker
+              key={marker._id}
               coordinate={{longitude: marker.loc[0], latitude: marker.loc[1]}}
               title={marker.group_name}
-              description={marker.address}
+              image={require('../../assets/locationicon.png')}
+              description={this._markerDesc(marker)}
             />
           ))}
         </MapView>
         <View style = {styles.radiusCircle}>
-          <Text style = {styles.radiusText}> {radius}mi </Text>
+          <Text style = {styles.radiusText}> {this.props.city || 'All'} </Text>
         </View>
         <View style = {styles.footer}>
           <TouchableOpacity onPress = {() => this.toggleSearch()} style = {styles.buttonContainer}>
             <Image style = {styles.button} source = {require('../../assets/search.png')} />
           </TouchableOpacity>
           <Text style = {styles.title}>
-            Serenity Maps 
+              Serenity Maps 
           </Text>
           <TouchableOpacity onPress = {() => this.toggleList()} style = {styles.buttonContainer}>
             <Image style = {styles.button} source = {require('../../assets/note.png')} />
           </TouchableOpacity>
         </View>
         <ModalWrapper
-            onRequestClose={this.toggleSearch.bind(this)}
+            onRequestClose={() => console.log('closed')}
             position="left"
-            style={{ width: '70%', height: '100%', position: 'absolute', left: 0}}
+            style={{ width: '100%', height: '100%', position: 'absolute', left: 0}}
             visible={settingsModal}>
-            <SettingsModal  closeMe={this.toggleSearch.bind(this)}/>
+            <SettingsModal  closeMe={this.props.toggleSettingsModal}/>
         </ModalWrapper>
         <ModalWrapper
             onRequestClose={this.toggleList.bind(this)}
@@ -120,11 +128,16 @@ const mapStateToProps = state => {
     settingsModal: state.map.settingsModal,
     listModal: state.map.listModal,
     radius: state.map.radius,
-    meetings: state.map.meetings
+    meetings: state.map.meetings,
+    city: state.map.city
   };
 };
 
-export default connect(mapStateToProps, { toggleSettingsModal, toggleListModal, updateCurrentLocation })(LandingMap);
+export default connect(mapStateToProps, { toggleSettingsModal, 
+                                          toggleListModal, 
+                                          updateCurrentLocation, 
+                                          searchForMeetings,
+                                          getCities })(LandingMap);
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -159,7 +172,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(2),
     fontFamily: 'DINPro-Bold'
   },
   radiusText: {
@@ -174,12 +187,12 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   buttonContainer: {
-    height: '50%',
+    height: '40%',
     width: '15%',
   },
   radiusCircle: {
     height: 26,
-    width: 26,
+    width: 'auto',
     borderRadius: 13,
     borderWidth: 1,
     borderColor: '#fff',
@@ -188,6 +201,7 @@ const styles = StyleSheet.create({
     top: '5%',
     left: '5%',
     flex: 0,
+    padding: '4%',
     alignItems: 'center',
     justifyContent: 'center'
   }

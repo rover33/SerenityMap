@@ -6,9 +6,18 @@ const INITIAL_STATE = {
     },
     currentLocation: {},
     city: '',
-    radius: 5,
+    daysOfTheWeek: [
+      {label: 'Sunday', value: 'Sunday', key: 'Sunday'},
+      {label: 'Monday', value: 'Monday', key: 'Monday'},
+      {label: 'Tuesday', value: 'Tuesday', key: 'Tuesday'},
+      {label: 'Wednesday', value: 'Wednesday', key: 'Wednesday'},
+      {label: 'Thursday', value: 'Thursday', key: 'Thursday'},
+      {label: 'Friday', value: 'Friday', key: 'Friday'},
+      {label: 'Saturday', value: 'Saturday', key: 'Saturday'}
+    ],
     dayOfWeek: '',
-    meetings: []
+    meetings: [],
+    cities: []
   };
   import {
     TOGGLE_SETTINGS_MODAL,
@@ -17,13 +26,19 @@ const INITIAL_STATE = {
     UPDATE_RADIUS,
     UPDATE_CURRENT_LOCATION,
     UPDATE_DAY,
-    UPDATE_MEETINGS
+    UPDATE_MEETINGS,
+    UPDATE_CITIES,
+    UPDATE_CITY,
+    CLOSE_SETTINGS_MODAL
   } from '../actions/types';
   
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case TOGGLE_SETTINGS_MODAL:
         return { ...state, settingsModal: !state.settingsModal }
+        break
+      case  CLOSE_SETTINGS_MODAL:
+        return { ...state, settingsModal: false }
         break
       case TOGGLE_LIST_MODAL:
         return { ...state, listModal: !state.listModal }
@@ -41,9 +56,13 @@ const INITIAL_STATE = {
         return { ...state, dayOfWeek: action.payload }
         break
       case UPDATE_MEETINGS:
-        console.log('the meetings')
-        console.log(action.payload)
         return { ...state, meetings: action.payload }
+        break
+      case UPDATE_CITIES:
+        return { ...state, cities: action.payload}
+        break
+      case UPDATE_CITY:
+        return { ...state, city: action.payload } 
         break
       default:
         return state;
