@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "react": "16.2.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.0.0",
+    "react": "16.3.1",
     "react-native": "^0.58.4",
     "react-native-busy-indicator": "^1.1.0",
     "react-native-chooser": "^1.7.0",
@@ -35,10 +38,15 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "babel-jest": "22.2.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "22.2.1",
-    "react-test-renderer": "16.2.0"
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/runtime": "7.0.0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23",
+    "jest": "^23",
+    "react-test-renderer": "16.6.0-alpha.8af6728",
+    "metro-react-native-babel-preset": "^0.46.0",
+    "schedule": "^0.4.0"
   },
   "jest": {
     "preset": "react-native"

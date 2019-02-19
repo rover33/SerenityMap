@@ -108,7 +108,7 @@ class LandingMap extends Component {
             position="left"
             style={{ width: '100%', height: '100%', position: 'absolute', left: 0}}
             visible={settingsModal}>
-            <SettingsModal  closeMe={this.props.toggleSettingsModal}/>
+            <SettingsModal closeMe={this.props.toggleSettingsModal}/>
         </ModalWrapper>
         <ModalWrapper
             onRequestClose={this.toggleList.bind(this)}
